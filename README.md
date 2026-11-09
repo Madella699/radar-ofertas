@@ -37,6 +37,8 @@ O projeto não faz scraping indiscriminado. Cada integração deve usar API/feed
 ## Estado atual
 - Aplicação publicada na Vercel e conexão com o Supabase validada pelo endpoint `/api/health`.
 - A API `POST /api/ingest` valida os campos recebidos, exige `x-ingestion-key`, limita lotes a 50 ofertas e registra no histórico quando o preço no cartão muda.
-- A ingestão ainda depende de configurar `INGESTION_API_KEY` na Vercel e de conectar uma fonte real (API/feed autorizado ou integração permitida pela loja).
+- O coletor inicial do Mercado Livre está em `POST /api/collect/mercadolivre`. Ele consulta a API oficial com `MELI_ACCESS_TOKEN`, aceita de 1 a 5 termos de busca por chamada e grava somente anúncios com preço em BRL, URL válida e condição explícita (novo/usado).
+- O preço retornado pela API é armazenado como preço anunciado; não é apresentado como preço parcelado ou preço exclusivo no cartão.
+- A coleta exige `INGESTION_API_KEY` e `MELI_ACCESS_TOKEN` configurados como variáveis privadas na Vercel. O token do Mercado Livre é temporário e precisará de renovação; o fluxo OAuth/refresh automático e a agenda recorrente ainda serão implementados.
 - A interface ainda pode exibir dados demonstrativos quando não houver ofertas reais; eles estão marcados como exemplos.
 - Painel administrativo, alertas e coletores por loja ainda não foram implementados.
