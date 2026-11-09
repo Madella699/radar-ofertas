@@ -54,7 +54,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const robotsResponse = await fetch("https://www.pelando.com.br/robots.txt", {
+  const robotsResponse = await fetch("https://api-web.pelando.com.br/robots.txt", {
     cache: "no-store",
     signal: AbortSignal.timeout(10000),
   }).catch(() => null);
