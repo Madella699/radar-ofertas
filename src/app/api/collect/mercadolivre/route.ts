@@ -81,7 +81,8 @@ export async function POST(request: Request) {
     for (const item of payload.results ?? []) {
       if (item.id && item.title && typeof item.price === "number" &&
           item.price > 0 && item.currency_id === "BRL" &&
-          item.permalink?.startsWith("https://")) {
+          item.permalink?.startsWith("https://") &&
+          (item.condition === "new" || item.condition === "used")) {
         collected.set(item.id, item);
       }
     }
@@ -130,7 +131,7 @@ export async function POST(request: Request) {
       installments: null,
       installment_value: null,
       shipping: null,
-      condition: item.condition === "used" ? "used" : "new",
+      condition: item.condition as "new" | "used",
       product_url: item.permalink,
       verified_at: timestamp,
     };
