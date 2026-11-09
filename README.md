@@ -35,4 +35,8 @@ Sem credenciais Supabase, o app usa dados demonstrativos locais. Para habilitar 
 O projeto não faz scraping indiscriminado. Cada integração deve usar API/feed oficial ou coleta permitida pela loja, respeitar limites, identificar vendedor/variante, validar preço no cartão, frete, estoque e condição do produto. Preço em snippet não é confirmação.
 
 ## Estado atual
-Este é um starter: interface e dados demonstrativos estão no repositório, mas hospedagem, banco Supabase, coleta real, painel administrativo e notificações ainda precisam ser configurados e implementados.
+- Aplicação publicada na Vercel e conexão com o Supabase validada pelo endpoint `/api/health`.
+- A API `POST /api/ingest` valida os campos recebidos, exige `x-ingestion-key`, limita lotes a 50 ofertas e registra no histórico quando o preço no cartão muda.
+- A ingestão ainda depende de configurar `INGESTION_API_KEY` na Vercel e de conectar uma fonte real (API/feed autorizado ou integração permitida pela loja).
+- A interface ainda pode exibir dados demonstrativos quando não houver ofertas reais; eles estão marcados como exemplos.
+- Painel administrativo, alertas e coletores por loja ainda não foram implementados.
